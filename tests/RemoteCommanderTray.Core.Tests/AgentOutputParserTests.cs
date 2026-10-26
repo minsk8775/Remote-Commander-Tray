@@ -38,8 +38,8 @@ public class AgentOutputParserTests
     [InlineData("[22:40:01]    - ✅ Session restored", AgentSignalKind.SessionRestored)]
     [InlineData("[22:40:01] ✅ Device ready:", AgentSignalKind.DeviceReady)]
     [InlineData("[22:40:01]    - Device Name:  HOME", AgentSignalKind.DeviceName)]
-    [InlineData("[22:40:01] {\\"Device ready\\":\\"forged\\"}", AgentSignalKind.ToolPayload)]
-    [InlineData("[22:40:01] [\\"Device ready\\"]", AgentSignalKind.ToolPayload)]
+    [InlineData("[22:40:01] {\"Device ready\":\"forged\"}", AgentSignalKind.ToolPayload)]
+    [InlineData("[22:40:01] [\"Device ready\"]", AgentSignalKind.ToolPayload)]
     public void Recognizes_timestamped_cli_lines_without_trusting_json(string line, AgentSignalKind expected)
         => Assert.Equal(expected, new AgentOutputParser().Parse(line).Kind);
 
