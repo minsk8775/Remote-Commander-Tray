@@ -68,8 +68,9 @@ public sealed class RollingFileLog : IDisposable
                     Directory.CreateDirectory(directory);
                 }
 
-                RotateIfNeeded(line.Length);
-                File.AppendAllText(_path, line + Environment.NewLine, Encoding.UTF8);
+                var entry = line + Environment.NewLine;
+                RotateIfNeeded(Encoding.UTF8.GetByteCount(entry));
+                File.AppendAllText(_path, entry, Encoding.UTF8);
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or NotSupportedException)
             {
