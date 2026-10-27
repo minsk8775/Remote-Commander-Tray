@@ -195,6 +195,21 @@ public class RollingFileLogTests : IDisposable
     }
 
     [Fact]
+    public void Rotates_using_utf8_bytes_when_log_contains_unicode()
+    {
+        var path = Path.Combine(_folder, "agent.log");
+        const int limit = 16 * 1024;
+        using var log = new RollingFileLog(path, maxBytes: limit, retainedFiles: 2);
+
+        for (var i = 0; i < 120; i++)
+            log.Write(LogSource.Agent, new string('한', 256));
+
+        Assert.True(File.Exists(path + ".1"));
+        Assert.InRange(new FileInfo(path).Length, 1, limit);
+        Assert.InRange(new FileInfo(path + ".1").Length, 1, limit);
+    }
+
+    [Fact]
     public void Redacts_on_the_way_in()
     {
         var path = Path.Combine(_folder, "agent.log");
