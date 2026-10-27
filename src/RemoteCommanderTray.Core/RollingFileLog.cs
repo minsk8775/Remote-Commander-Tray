@@ -101,10 +101,10 @@ public sealed class RollingFileLog : IDisposable
         }
     }
 
-    private void RotateIfNeeded(int incomingLength)
+    private void RotateIfNeeded(int incomingBytes)
     {
         var info = new FileInfo(_path);
-        if (!info.Exists || info.Length + incomingLength <= _maxBytes)
+        if (!info.Exists || info.Length + incomingBytes <= _maxBytes)
         {
             return;
         }
