@@ -40,6 +40,7 @@ public readonly record struct AgentResolution(AgentLaunchSpec? Spec, string? Pro
 public sealed class AgentCommandResolver
 {
     public const string PackageName = "@wonderwhy-er/desktop-commander";
+    public const string FallbackPackageVersion = "0.3.1";
 
     private static readonly string[] PackageRelativePath =
         ["node_modules", "@wonderwhy-er", "desktop-commander", "dist", "index.js"];
@@ -90,7 +91,7 @@ public sealed class AgentCommandResolver
         var npx = FindOnPath("npx.cmd") ?? FindOnPath("npx.exe");
         if (npx is not null)
         {
-            return new AgentResolution(WrapInCmd($"{Quote(npx)} -y {PackageName}@latest {suffix}"), null);
+            return new AgentResolution(WrapInCmd($"{Quote(npx)} -y {PackageName}@{FallbackPackageVersion} {suffix}"), null);
         }
 
         return new AgentResolution(
