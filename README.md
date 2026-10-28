@@ -36,8 +36,10 @@ Install the agent once:
 npm install -g @wonderwhy-er/desktop-commander
 ```
 
-If it is not installed globally, the tray falls back to `npx`, which downloads the
-package on first run.
+If it is not installed globally, the tray falls back to `npx`, which downloads a
+**pinned, tested version** of Desktop Commander (`0.3.1`), not a moving `@latest`.
+Install the CLI globally if you need to upgrade independently; the tray prefers
+that installation. Review package updates before changing the fallback version.
 
 ## Install
 
