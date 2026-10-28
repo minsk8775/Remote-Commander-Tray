@@ -76,7 +76,8 @@ public class AgentCommandResolverTests
 
         var resolution = new AgentCommandResolver(env).Resolve(AgentCommand.Remote, new TraySettings());
 
-        Assert.Contains(AgentCommandResolver.PackageName, resolution.Spec!.Arguments);
+        Assert.Contains($"{AgentCommandResolver.PackageName}@{AgentCommandResolver.FallbackPackageVersion}", resolution.Spec!.Arguments);
+        Assert.DoesNotContain("@latest", resolution.Spec.Arguments);
         Assert.Contains("-y", resolution.Spec.Arguments);
     }
 
